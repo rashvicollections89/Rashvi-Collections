@@ -1,0 +1,116 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Embroidery design product catalog item",
+      "type": "object",
+      "properties": {
+        "designNumber": { "type": "string", "maxLength": 64 },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 3000 },
+        "category": { "type": "string", "maxLength": 100 },
+        "price": { "type": "number" },
+        "salePrice": { "type": "number" },
+        "images": { "type": "array" },
+        "stock": { "type": "number" },
+        "variations": { "type": "array" },
+        "fileFormat": { "type": "string", "maxLength": 100 },
+        "featured": { "type": "boolean" },
+        "trending": { "type": "boolean" },
+        "active": { "type": "boolean" },
+        "stitches": { "type": "number" },
+        "dimensions": { "type": "string", "maxLength": 100 },
+        "colors": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 64 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["designNumber", "title", "price", "category", "active"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase order for embroidery designs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "customer": { "type": "object" },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "discount": { "type": "number" },
+        "total": { "type": "number" },
+        "paymentMethod": { "type": "string", "maxLength": 32 },
+        "paymentStatus": { "type": "string", "maxLength": 64 },
+        "utr": { "type": "string", "maxLength": 128 },
+        "orderStatus": { "type": "string", "maxLength": 64 },
+        "deliveryStatus": { "type": "string", "maxLength": 64 },
+        "whatsappMessageId": { "type": "string", "maxLength": 128 },
+        "whatsappSentAt": { "type": "string", "maxLength": 64 },
+        "whatsappDeliveryError": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "maxLength": 64 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["customer", "items", "total", "paymentStatus", "orderStatus"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Embroidery category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "slug": { "type": "string", "maxLength": 100 },
+        "image": { "type": "string", "maxLength": 1000 },
+        "description": { "type": "string", "maxLength": 500 },
+        "active": { "type": "boolean" }
+      },
+      "required": ["name", "slug", "active"]
+    },
+    "StoreSettings": {
+      "title": "StoreSettings",
+      "description": "Store configuration and UPI settings",
+      "type": "object",
+      "properties": {
+        "storeName": { "type": "string", "maxLength": 100 },
+        "tagline": { "type": "string", "maxLength": 200 },
+        "upiId": { "type": "string", "maxLength": 128 },
+        "upiName": { "type": "string", "maxLength": 128 },
+        "upiQrUrl": { "type": "string", "maxLength": 1000 },
+        "supportPhone": { "type": "string", "maxLength": 32 },
+        "supportEmail": { "type": "string", "maxLength": 128 },
+        "whatsappTemplate": { "type": "string", "maxLength": 1000 },
+        "currency": { "type": "string", "maxLength": 10 },
+        "currencySymbol": { "type": "string", "maxLength": 10 }
+      }
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Admin authorization entry",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 128 },
+        "role": { "type": "string", "maxLength": 32 }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Catalog of embroidery designs available for purchase"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer purchase orders with UPI tracking and delivery workflow"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Design collection categories"
+    },
+    "/settings/{settingId}": {
+      "schema": "StoreSettings",
+      "description": "Store-wide configuration including UPI and WhatsApp templates"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Authorized administrators"
+    }
+  }
+}
